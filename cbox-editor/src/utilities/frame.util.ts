@@ -151,7 +151,6 @@ export interface FrameDefinition {
 
 export type FrameDefinitionMap = {
   name: string;
-  tempPushbox: {x: number, y: number, width: number, height: number};
   frameDef: {
     [key: string]: FrameDefinition;
   }
