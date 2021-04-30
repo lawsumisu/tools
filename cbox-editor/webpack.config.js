@@ -38,6 +38,7 @@ module.exports = {
     ]
   },
   devServer: {
+    open: true,
     hot: true,
     port: 8081,
     contentBase: SRC_DIR
