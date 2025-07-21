@@ -1,5 +1,4 @@
-import actionCreatorFactory, { isType } from 'typescript-fsa';
-import { Action } from 'redux';
+import { Action, createAction } from '@reduxjs/toolkit';
 import { Vector2 } from '@lawsumisu/common-utilities';
 import * as _ from 'lodash';
 import { frameDefinitionEditReducer, FrameDefinitionEditState } from 'src/redux/frameData/frameDefinitionEdit';
@@ -77,28 +76,26 @@ const initialState: FrameDataState = {
   frameDefinitionEdits: {}
 };
 
-const ACF = actionCreatorFactory('frameData');
-
 export const frameDataActionCreators = {
-  select: ACF<{ key: string; frame: number }>('SELECT'),
-  loadDefinition: ACF<{ definition: FrameDefinitionMap['frameDef'], name: string }>('LOAD_DEFINITION'),
-  loadSpriteSheet: ACF<{ key: string; source: string; textureData: TextureDataTP }>('LOAD_SPRITE_SHEET')
+  select: createAction<{ key: string; frame: number }>('SELECT'),
+  loadDefinition: createAction<{ definition: FrameDefinitionMap['frameDef']; name: string }>('LOAD_DEFINITION'),
+  loadSpriteSheet: createAction<{ key: string; source: string; textureData: TextureDataTP }>('LOAD_SPRITE_SHEET')
 };
 
 export function frameDataReducer(state: FrameDataState = initialState, action: Action): FrameDataState {
-  if (isType(action, frameDataActionCreators.select)) {
+  if (frameDataActionCreators.select.match(action)) {
     return {
       ...state,
       selection: { ...action.payload }
     };
-  } else if (isType(action, frameDataActionCreators.loadDefinition)) {
+  } else if (frameDataActionCreators.loadDefinition.match(action)) {
     return {
       ...state,
       definitionMap: action.payload.definition,
       filename: action.payload.name,
-      frameDefinitionEdits: {},
+      frameDefinitionEdits: {}
     };
-  } else if (isType(action, frameDataActionCreators.loadSpriteSheet)) {
+  } else if (frameDataActionCreators.loadSpriteSheet.match(action)) {
     const { key, source, textureData } = action.payload;
     return {
       ...state,

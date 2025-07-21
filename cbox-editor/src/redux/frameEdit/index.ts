@@ -1,5 +1,4 @@
-import { Action } from 'redux';
-import actionCreatorFactory, { isType } from 'typescript-fsa';
+import { Action, createAction } from '@reduxjs/toolkit';
 
 export interface FrameEditState {
   frame: {
@@ -9,23 +8,21 @@ export interface FrameEditState {
 }
 
 const initialState: FrameEditState = {
-  frame: null,
+  frame: null
 };
 
-const ACF = actionCreatorFactory('frameEdit');
-
 export const frameEditActionCreators = {
-  select: ACF<{ key: string, index: number}>('SELECT'),
-  clear: ACF('CLEAR')
+  clear: createAction('CLEAR'),
+  select: createAction<{ key: string; index: number }>('SELECT')
 };
 
 export function frameEditReducer(state: FrameEditState = initialState, action: Action): FrameEditState {
-  if (isType(action, frameEditActionCreators.select)) {
+  if (frameEditActionCreators.select.match(action)) {
     return {
       ...state,
-      frame: action.payload,
+      frame: action.payload
     };
-  } else if (isType(action, frameEditActionCreators.clear)) {
+  } else if (frameEditActionCreators.clear.match(action)) {
     return {
       ...state,
       frame: null
