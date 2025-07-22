@@ -15,11 +15,9 @@
 
   .cn--frame-definition-renderer {
     margin-left: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    >div {
+    display: grid;
+    > div {
       border: 1px solid #e1e4e8;
-      flex-shrink: 0;
     }
   }
 }

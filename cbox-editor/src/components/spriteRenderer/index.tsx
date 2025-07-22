@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FrameConfigTP } from 'src/utilities/frame.util'
+import { FrameConfigTP } from 'src/utilities/frame.util';
 import { loadImage } from 'src/utilities/image.util';
 
 export interface SpriteProps {
@@ -38,7 +38,6 @@ export default class SpriteRenderer extends React.PureComponent<SpriteProps> {
       if (this.ref !== null) {
         const context = this.ref.getContext('2d');
         if (context) {
-
           context.imageSmoothingEnabled = false;
           context.clearRect(0, 0, this.ref.width, this.ref.height);
           // draw cropped image
